@@ -1,4 +1,5 @@
-# Environment variables
+# Environment — NEVER commit your API key
+backend/.env
 .env
 
 # Python virtual environment
@@ -24,8 +25,12 @@ wheels/
 .installed.cfg
 *.egg
 
+# Frontend build — Railway builds this automatically at deploy time
+frontend/dist/
+
 # Node.js
 node_modules/
+frontend/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

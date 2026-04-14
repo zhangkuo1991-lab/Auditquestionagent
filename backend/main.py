@@ -16,8 +16,11 @@ Multi-agent flow:
 import os
 import shutil
 import tempfile
+from pathlib import Path
 from fastapi import FastAPI, HTTPException, UploadFile, File, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import List, Optional, Dict
 import anthropic
@@ -27,8 +30,8 @@ from agents.manager_agent import get_system_prompt as manager_prompt, get_tools
 from agents.audit_standards_agent import get_system_prompt as audit_prompt
 from rag.retriever import retriever
 
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+# Load .env for local development (Railway uses env vars set in dashboard)
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 # ---------------------------------------------------------------------------
 # App setup
@@ -36,17 +39,30 @@ load_dotenv(dotenv_path)
 
 app = FastAPI(title="AuditIQ API", version="2.0.0")
 
+# CORS — allow all origins in production (Railway gives a single public URL)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ---------------------------------------------------------------------------
+# Serve React frontend (production build)
+# ---------------------------------------------------------------------------
+# In production, `npm run build` outputs to frontend/dist/.
+# FastAPI serves those static files so only ONE service is needed on Railway.
+
+_FRONTEND_DIST = Path(__file__).parent.parent / "frontend" / "dist"
+
+if _FRONTEND_DIST.exists():
+    # Serve /assets/* statically (JS, CSS, images)
+    app.mount(
+        "/assets",
+        StaticFiles(directory=str(_FRONTEND_DIST / "assets")),
+        name="assets",
+    )
 
 # ---------------------------------------------------------------------------
 # Load RAG index on startup
@@ -327,3 +343,16 @@ def chat(request: ChatRequest):
         raise HTTPException(status_code=429, detail="Rate limit exceeded.")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ---------------------------------------------------------------------------
+# Catch-all: serve React app for any non-API route (client-side routing)
+# Must be LAST so it doesn't shadow /api/* routes.
+# ---------------------------------------------------------------------------
+
+@app.get("/{full_path:path}", include_in_schema=False)
+def serve_react(full_path: str):
+    index = _FRONTEND_DIST / "index.html"
+    if index.exists():
+        return FileResponse(str(index))
+    return {"detail": "Frontend not built. Run: cd frontend && npm run build"}
