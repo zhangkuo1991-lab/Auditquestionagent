@@ -1,0 +1,138 @@
+.input-area {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 16px 24px 20px;
+  flex-shrink: 0;
+}
+
+/* ─── Suggestions ────────────────────────────────────── */
+.suggestions {
+  margin-bottom: 12px;
+}
+
+.suggestions-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.suggestions-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.suggestion-chip {
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  color: var(--navy);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-chip:hover:not(:disabled) {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+
+.suggestion-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Input row ──────────────────────────────────────── */
+.input-row { display: flex; flex-direction: column; gap: 6px; }
+
+.input-box {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 10px 10px 16px;
+  transition: border-color 0.2s;
+}
+
+.input-box:focus-within {
+  border-color: var(--accent);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+
+.input-textarea {
+  flex: 1;
+  border: none;
+  background: transparent;
+  resize: none;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 22px;
+  max-height: 140px;
+  outline: none;
+  overflow-y: auto;
+}
+
+.input-textarea::placeholder { color: #94a3b8; }
+.input-textarea:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ─── Send button ────────────────────────────────────── */
+.send-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.send-btn:hover:not(:disabled) {
+  background: var(--accent-hover);
+  transform: scale(1.05);
+}
+
+.send-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.send-btn.loading { background: var(--accent); cursor: wait; }
+
+/* ─── Spinner ────────────────────────────────────────── */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.input-hint {
+  font-size: 11px;
+  color: #94a3b8;
+  text-align: right;
+  padding-right: 4px;
+}

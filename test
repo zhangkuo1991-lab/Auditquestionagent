@@ -1,0 +1,7 @@
+import anthropic
+
+client = anthropic.Anthropic()
+
+client.beta.files.upload(
+    file=("document.pdf", open("/path/to/document.pdf", "rb"), "application/pdf"),
+)

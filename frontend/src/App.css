@@ -1,0 +1,285 @@
+/* ─── Layout ─────────────────────────────────────────── */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ─── Sidebar ────────────────────────────────────────── */
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo-icon { font-size: 28px; }
+
+.logo-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.logo-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 1px;
+}
+
+.sidebar-nav {
+  padding: 20px 16px 8px;
+  flex: 1;
+}
+
+.nav-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 10px;
+  padding: 0 4px;
+}
+
+.agent-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  background: rgba(255,255,255,0.07);
+  cursor: default;
+}
+
+.agent-badge:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.agent-badge-icon { font-size: 18px; }
+
+.agent-badge-info { flex: 1; min-width: 0; }
+
+.agent-badge-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.agent-badge-desc {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 1px;
+}
+
+.agent-status {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.agent-status.active {
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34,197,94,0.6);
+}
+
+.agent-status.inactive {
+  background: #475569;
+}
+
+/* ─── Knowledge Base section ─────────────────────────── */
+.kb-section {
+  padding: 16px 16px 8px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.kb-status {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.05);
+}
+
+.kb-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34,197,94,0.6);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.empty-dot { background: #475569; box-shadow: none; }
+
+.kb-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.kb-meta {
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 2px;
+  word-break: break-word;
+}
+
+.btn-upload {
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(59,130,246,0.2);
+  border: 1px solid rgba(59,130,246,0.4);
+  border-radius: 6px;
+  color: #93c5fd;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+}
+
+.btn-upload:hover:not(:disabled) {
+  background: rgba(59,130,246,0.35);
+  color: #fff;
+}
+
+.btn-upload.uploading,
+.btn-upload:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.upload-note {
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* ─── Sidebar Logs ───────────────────────────────────── */
+.sidebar-logs {
+  padding: 16px 16px 8px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 8px;
+}
+
+.log-entry {
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.log-agent {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.3px;
+  margin-bottom: 2px;
+}
+
+.log-action {
+  display: block;
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.4;
+}
+
+/* ─── Sidebar Footer ─────────────────────────────────── */
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn-clear {
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: 10px;
+}
+
+.btn-clear:hover {
+  background: rgba(255,255,255,0.14);
+  color: #fff;
+}
+
+.footer-note {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  text-align: center;
+}
+
+/* ─── Main area ──────────────────────────────────────── */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.chat-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 28px;
+  flex-shrink: 0;
+  box-shadow: var(--shadow);
+}
+
+.chat-header-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.chat-header-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ─── Error bar ──────────────────────────────────────── */
+.error-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  padding: 10px 20px;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.error-bar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #b91c1c;
+  font-size: 15px;
+  padding: 0 4px;
+}
